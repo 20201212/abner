@@ -10,7 +10,7 @@ class Error
     public function __call($name, $arguments)
     {
 
-        return show(400,"该控{$name}制器不存在!");
+        return show(config('status.notFound'),"该控{$name}制器不存在!");
     }
 
 }

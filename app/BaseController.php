@@ -94,7 +94,7 @@ abstract class BaseController
 
     public function __call($name, $arguments)
     {
-        return show(400,"该{$name}方法不存在!");
+        return show(config('status.notFound'),"该{$name}方法不存在!");
     }
 
 

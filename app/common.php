@@ -20,3 +20,4 @@ function show($status, $message="error", $data = [], $httpStatus = 200){
     return json($result,$httpStatus);
 
 }
+

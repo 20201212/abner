@@ -16,7 +16,6 @@ function show($status, $message="error", $data = [], $httpStatus = 200){
         'result' => $data,
         'time'   => date('Y-m-d H:i:s', time()),
     ];
-
     return json($result,$httpStatus);
 
 }

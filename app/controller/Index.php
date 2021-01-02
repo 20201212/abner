@@ -7,7 +7,9 @@ class Index extends BaseController
 {
     public function index()
     {
-        echo 'ddd';
+        halt(config('cache.default'));
+        $data['code'] = '2345';
+//        return  json($data);
 
     }
 

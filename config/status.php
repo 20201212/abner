@@ -11,4 +11,10 @@ return [
     'notFound'      => 404,// 请求的不存在
 
 
+    'mysql'=>[
+        'table_normal'  => 1,
+    ],
+    'not_login' => 201,//登录失败
+
+
 ];

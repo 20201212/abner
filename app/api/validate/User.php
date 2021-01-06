@@ -12,7 +12,8 @@ class User extends Validate
         'username'      => 'require',
         'phone'         => 'require',
         'code'          => 'require|number|min:4',
-        'type'          => ['require', 'in'=>'1,2'],
+        'ltype'         => ['require', 'in'=>'1,2'],
+        'sex'           => ['require', 'in'=>'0,1,2'],
     ];
 
     protected $message = [
@@ -21,13 +22,16 @@ class User extends Validate
         'code.require'  => '验证码不能为空',
         'code.number'   => '验证码必须为数字',
         'code.min'      => '验证码长度不能少于位',
-        'code.require'  => '类型必须是指定的类型',
-        'code.in'       => '类型数值错误！',
+        'ltype.require' => '类型必须是指定的类型',
+        'ltype.in'      => '类型数值错误！',
+        'sex.require'   => '性别必须填写',
+        'sex.in'        => '性别类型错误',
     ];
 
     protected $scene = [
         'send_code'     => ['phone_number'],
         'login'         => ['phone', 'code','type'],
+        'update_user'         => ['username', 'sex'],
     ];
 
 

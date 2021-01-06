@@ -19,15 +19,16 @@ class Login extends BaseController
         if( !$validate ->scene('login')->check($data) ){
             return show(config('status.error'), $validate->getError());
         }
+        $restul = (new \app\common\business\User()) -> login($data);
+        if($restul){
+            return show(config('status.success'), '登录成功!', $restul);
+        }
 
         return show(config('status.error'), '登录失败');
 
-
-
-
-
-
     }
+
+
 
 
 

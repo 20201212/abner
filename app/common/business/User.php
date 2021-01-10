@@ -24,16 +24,17 @@ class User
          if(!$user){
              $username = 'Abner-'.$data['phone'];
              $userData = [
-                 'username' => $username,
-                 'phone'    => $data['phone'],
+                 'username'  => $username,
+                 'phone'     => $data['phone'],
                  'ltype'     => $data['type'],
-                 'status'   => config('status.mysql.table_normal')
+                 'last_time' => time(),
+                 'status'    => config('status.mysql.table_normal')
              ];
              try {
                  $this->userObj->save($userData);
                  $userId = $this->userObj->id;
              } catch ( \Exception $e ) {
-                 throw new \think\Exception('数据库内容部错误！');
+                 throw new \think\Exception($e->getMessage());
              }
 
          }  else {

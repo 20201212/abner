@@ -13,6 +13,7 @@ return [
 
     'mysql'=>[
         'table_normal'  => 1,
+        'table_delete'  => 99,
     ],
     'not_login' => 201,//登录失败
 

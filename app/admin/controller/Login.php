@@ -6,8 +6,7 @@ class Login extends AdminBase
 
     public function index(){
 
-//          halt(md5(md5('Abnerabner').'abner'));
-        dump(session());
+        echo "请先登录";
 //        return View::fetch();
     }
 

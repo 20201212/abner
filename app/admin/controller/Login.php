@@ -12,9 +12,9 @@ class Login extends AdminBase
         if(!$this->request->isPost())
             return show(config('status.error'), '请求方式错误！');
         $params = $this->request->param();
-        $validate = new \app\admin\validate\AdminUser();
-        if(!$validate->check($params))
-            return show(config('status.error'), $validate->getError());
+//        $validate = new \app\admin\validate\AdminUser();
+//        if(!$validate->check($params))
+//            return show(config('status.error'), $validate->getError());
 
 
         $result = \app\admin\business\AdminUser::login($params);

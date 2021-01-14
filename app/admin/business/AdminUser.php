@@ -9,12 +9,12 @@ use think\Exception;
 class AdminUser
 {
     public static  function login($data){
-
-        try {
             $adminUser = self::getAdminUserByUsername($data['username']);
-            if(empty($adminUser))
+            if(!$adminUser)
+            {
                 throw new Exception('账户不存在！');
-
+            }
+            halt($adminUser);
             $salf =$adminUser->salf;
             $password = md5(md5($data['password'].$salf).$salf);
             if($adminUser->password != $password){
@@ -33,19 +33,7 @@ class AdminUser
                 throw new Exception('登录失败！');
             }
             session(config('admin.session_admin'), $adminUser);
-            return true;
-
-        }catch(\Exception $e){
-            $errorData = [
-                'msg'=>$e->getMessage(),
-                'line'=>$e->getLine(),
-                'file'=>$e->getFile(),
-                'code'=>$e->getCode()
-            ];
-            $errorData = json_encode($errorData,true);
-            \think\facade\Log::info("异常日志:{$errorData}");
-            throw new Exception('内部异常');
-        }
+            return true; 
 
     }
 

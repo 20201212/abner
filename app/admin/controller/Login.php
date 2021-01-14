@@ -5,9 +5,7 @@ class Login extends AdminBase
 {
 
     public function index(){
-
-        echo "请先登录";
-//        return View::fetch();
+        return view();
     }
 
     public function check(){

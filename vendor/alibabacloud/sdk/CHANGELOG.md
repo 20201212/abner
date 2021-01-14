@@ -1,5 +1,114 @@
 # CHANGELOG
 
+## 1.8.795 - 2021-1-11
+- Add result value spanId for GetTrace api.
+
+
+## 1.8.794 - 2021-1-11
+- Add DescribeConnectionStatus and DescribeDTSIP, remove UpgradeTwoWay.
+
+
+## 1.8.793 - 2021-1-8
+- Add API related to resource quota of source monitoring.
+- Add a new version of alert log API.
+
+
+## 1.8.792 - 2021-1-7
+- Add new API for configuration and report.
+
+
+## 1.8.791 - 2021-1-7
+- Add CreateAndStartBackupPlan.
+- Add DescribeDLAService.
+- Add CreateDLAService.
+- Add CloseDLAService.
+
+
+## 1.8.790 - 2021-1-7
+- Generated 2019-09-10 for `waf-openapi`.
+
+
+## 1.8.789 - 2021-1-7
+- Generated 2020-11-26 for `Airec`.
+
+
+## 1.8.788 - 2021-1-6
+- Update DetectLungNodule.
+
+
+## 1.8.787 - 2021-1-6
+- Support input parameter ClientToken for CreateAutoProvisioningGroup.
+
+
+## 1.8.786 - 2021-1-6
+- Add API.
+
+
+## 1.8.785 - 2021-1-5
+- Remove legacy APIs.
+
+
+## 1.8.784 - 2021-1-5
+- Add DescribeBackupTasks API.
+
+
+## 1.8.783 - 2021-1-4
+- Generated 2014-05-26 for `Ecs`.
+
+
+## 1.8.782 - 2021-1-4
+- Supported API for GTM.
+
+
+## 1.8.781 - 2020-12-31
+- Add support for thing model function block features, including thing model APIs like CreateThingModel,UpdateThingModel,SetDeviceProperty,InvokeThingService etc.
+
+
+## 1.8.780 - 2020-12-31
+- Update Open API.
+
+
+## 1.8.779 - 2020-12-30
+- Add DescribeActiveOperationTask API.
+- Add ModifyActiveOperationTask API.
+
+
+## 1.8.778 - 2020-12-30
+- Support directly specify image version deploy.
+
+
+## 1.8.777 - 2020-12-29
+- Supported SystemDiskPerformanceLevel, SystemDiskDeleteWithInstance, DataDiskPerformanceLevel, NetworkInterfaceSecurityGroupIds, SecurityGroupIds, PrivateIpAddress for CreateLaunchTemplate, CreateLaunchTemplateVersion, DescribeLaunchTemplateVersion.
+
+
+## 1.8.776 - 2020-12-29
+- ListNodesNoPaging return with instance type.
+
+
+## 1.8.775 - 2020-12-28
+- Generated 2020-05-18 for `dataworks-public`.
+
+
+## 1.8.774 - 2020-12-28
+- Release InterpolateVideoFrame ToneSdrVideo ConvertHdrVideo.
+
+
+## 1.8.773 - 2020-12-28
+- Release GenRealPersonVerificationToken GetRealPersonVerificationResult.
+
+
+## 1.8.772 - 2020-12-28
+- Add CommodityCode For QueryOrderAPI.
+
+
+## 1.8.771 - 2020-12-28
+- Ecs confirm.
+
+
+## 1.8.770 - 2020-12-28
+- Add some console API operations.
+
+
 ## 1.8.769 - 2020-12-25
 - Generated 2016-04-08 for `Emr`.
 

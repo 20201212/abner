@@ -17,8 +17,10 @@ class AdminUser
 
             $salf =$adminUser->salf;
             $password = md5(md5($data['password'].$salf).$salf);
-            if($adminUser->password != $password)
+            if($adminUser->password != $password){
                 throw new Exception('密码错误！');
+            }
+
 
             $data  = [
                 'last_login_ip'     =>request()->ip(),
@@ -40,7 +42,7 @@ class AdminUser
                 'file'=>$e->getFile(),
                 'code'=>$e->getCode()
             ];
-            $errorData = json_encode($errorData);
+            $errorData = json_encode($errorData,true);
             \think\facade\Log::info("异常日志:{$errorData}");
             throw new Exception('内部异常');
         }

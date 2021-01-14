@@ -7,8 +7,14 @@ class Index extends BaseController
 {
     public function index()
     {
-        halt(config('cache.default'));
-        $data['code'] = '2345';
+
+        for ($i=0; $i<100; $i++) {
+            echo $i.'<br/>';
+        }
+        echo $i;
+
+         phpinfo();
+
 //        return  json($data);
 
     }

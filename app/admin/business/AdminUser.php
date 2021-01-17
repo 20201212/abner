@@ -14,7 +14,6 @@ class AdminUser
             {
                 throw new Exception('账户不存在！');
             }
-            halt($adminUser);
             $salf =$adminUser->salf;
             $password = md5(md5($data['password'].$salf).$salf);
             if($adminUser->password != $password)

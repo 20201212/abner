@@ -8,6 +8,7 @@
 namespace app\common\business;
 use \app\common\model\mysql\Category as CategoryModel;
 use think\Exception;
+use think\facade\Log;
 
 class Category
 {
@@ -23,7 +24,7 @@ class Category
         $categorys = $list->toArray();
         $categorys['render'] = $list->render();
         $pids = array_column($categorys['data'],'id');
-//        halt($pids);
+
         if($pids){
             $idCountResult = $this->model->getChildCountInPids(['pid'=>$pids]);
             $idCountResult = $idCountResult->toArray();
@@ -38,7 +39,6 @@ class Category
                 $categorys['data'][$k]['childCount'] = $idCounts[$value['id']] ?? 0;
             }
         }
-        halt($categorys);
         return $categorys;
 
 
@@ -135,6 +135,19 @@ class Category
         return $res;
 
     }
+
+
+    public function getNormalByPid($pid = 0, $field = 'id,name,pid'){
+        try {
+            $res = $this->model->getNormalByPid($pid,$field);
+        }catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return [];
+        }
+        $res = $res -> toArray();
+        return $res;
+    }
+
 
 
 

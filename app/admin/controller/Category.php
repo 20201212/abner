@@ -22,9 +22,8 @@ class Category extends AdminUser
         if(!$categorys){
             return $categorys=[];
         }
-        halt($categorys);
-
-//        return $this->fetch('',['list'=>$list]);
+//        halt($categorys);
+        return view('',['lists' => $categorys]);
 
     }
 
@@ -35,8 +34,9 @@ class Category extends AdminUser
             $categorys = [];
         }
         $categorys = (new CategoryBus()) -> getNormalCategorys();
-        halt($categorys);
-//        return $this->fetch('',['categorys'=>$categorys]);
+        $categorys = json_encode($categorys,true);
+
+        return view('',['categorys'=>$categorys]);
     }
 
     public function save(Request $request){
@@ -112,10 +112,17 @@ class Category extends AdminUser
             return show(config('status.error'), '更新失败');
         }
 
+    }
 
+    public function dialog(){
+        $categorys = (new CategoryBus())->getNormalByPid();
+        return show(config('status.success'), 'ok', $categorys);
+    }
 
-
-
+    public function getByPid(){
+        $pid  = input('param.pid', 0, 'intval');
+        $categorys = (new CategoryBus()) ->getNormalByPid($pid);
+        return show(config('status.success'), 'ok', $categorys);
     }
 
 }

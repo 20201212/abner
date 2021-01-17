@@ -9,7 +9,9 @@ namespace app\admin\controller;
 class Specs extends AdminBase
 {
     public function dialog() {
-        return view();
+
+        return json(config('specs'));
+//        return view('', ['specs' => json_encode(config('specs'))]);
     }
 
 }

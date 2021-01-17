@@ -38,7 +38,7 @@ class Category extends  Model
             'listorder' => 'desc',
             'id'        => 'desc',
         ];
-        $result = $this->where('status', config('status.mysql.table_normal'))
+        $result = $this->where('status', '<>', config('status.mysql.table_delete'))
                 ->where($where)
                 ->order($order)
                 ->paginate($page);
@@ -69,8 +69,19 @@ class Category extends  Model
         return $res;
     }
 
+    public function getNormalByPid($pid,$field){
+        $where = [
+            'pid'       => $pid,
+            'status'    => config('status.mysql.table_normal'),
+        ];
+        $order = [
+            'listorder' => 'desc',
+            'id'        => 'desc',
+        ];
+        $res = $this->where($where)->field($field)->order($order)->select();
+        return $res;
 
-
+    }
 
 
 

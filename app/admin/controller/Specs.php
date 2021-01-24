@@ -10,8 +10,8 @@ class Specs extends AdminBase
 {
     public function dialog() {
 
-        return json(config('specs'));
-//        return view('', ['specs' => json_encode(config('specs'))]);
+//        return json(config('specs'));
+        return view('', ['specs' => json_encode(config('specs'))]);
     }
 
 }

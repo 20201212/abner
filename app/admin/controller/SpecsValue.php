@@ -40,4 +40,22 @@ class SpecsValue extends AdminBase
 
     }
 
+    public function status(){
+        $stauts = input('param.status',0, 'intval');
+        $specsId = input('param.specs_id', '', 'intval');
+        if(!$specsId) {
+            return show(config('status.success'), '没有数据');
+        }
+        try {
+            $res = ( new SpecsValueBis() )->status($specsId,$stauts);
+        }catch (\Exception $e){
+            return show(config('status.error'), $e->getMessage());
+        }
+        if($res){
+            return show(config('status.success'), '删除成功');
+        }else{
+            return show(config('status.error'), '删除失败');
+        }
+
+    }
 }

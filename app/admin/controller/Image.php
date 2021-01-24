@@ -14,10 +14,33 @@ class Image extends AdminBase
         }
         $file = $this->request->file('file');
         $filename = \think\facade\Filesystem::disk('public')->putFile('images',$file);
+        $filename = '/upload/'.str_replace("\\","/",$filename);
         if(!$filename) {
             return show(config('status.error'), '上传失败！');
         }
-        return show(config('status.success'), 'OK',['filename'=>$filename]);
+        return show(config('status.success'), 'OK',['image'=>$filename]);
     }
+
+
+    public function layUpload(){
+        if(!$this->request->isPost()){
+            return json(['code'=>1, 'msg'=>'上传失败','data'=>[]],200);
+        }
+        $file = $this->request->file('file');
+        $filename = \think\facade\Filesystem::disk('public')->putFile('images',$file);
+        $filename = '/upload/'.str_replace("\\","/",$filename);
+        if(!$filename) {
+            return json(['code'=>1, 'msg'=>'上传失败','data'=>[]],200);
+        }
+        $result = [
+            'code' => 0,
+            'data' => [
+                'src' =>$filename,
+            ],
+        ];
+
+        return json($result,200);
+    }
+
 
 }

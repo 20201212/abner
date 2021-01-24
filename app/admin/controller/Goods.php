@@ -10,7 +10,13 @@ use app\common\business\Goods as GoodsBis;
 class Goods extends AdminBase
 {
     public function index(){
-        return view();
+        $data = [];
+        $title = input('param.title', '', 'trim');
+        $time = input('param.time', '', 'trim');
+        if(!empty($title)) $data['title'] = $title;
+        if(!empty($time)) $data['time'] = explode(' - ', $time);
+        $goods = ( new GoodsBis )->getlistS($data,5);
+        return view('', ['goods'=>$goods]);
     }
 
     public function add(){
@@ -22,15 +28,18 @@ class Goods extends AdminBase
             return show(config('status.error'), '参数不合法');
         }
         $data = input('param.');
-        try {
-            $res = ( new GoodsBis() )->insertData($data);
-        } catch( \Exception $e ){
-            return show(config('status.error'), $e->getMessage());
+        $check = $this->request->checkToken('__token__');
+        if(!$check) {
+            return show(config('status.error'), '非法请求');
         }
+        $data['category_path_id'] = $data['category_id'];
+        $result = explode(',', $data['category_path_id']);
+        $data['category_id'] = end($result);
+
+        $res = ( new GoodsBis() )->insertData($data);
         if(!$res) {
             return show(config('status.error'), '新增商品失败');
         }
-
         return show(config('status.success'), '添加成功');
 
 

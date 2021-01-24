@@ -31,5 +31,26 @@ class SpecsValue extends BusBase
 
     }
 
+    public function status($id,$status){
+        $result = $this->model->find($id);
+        if(!$result){
+            throw new \think\Exception('该条记录不存在！');
+        }
+        if($result['status'] == $status) {
+            throw new \think\Exception('该记录已经被删除了');
+        }
+        $data = [
+            'status'        => intval($status),
+            'update_time'   => time(),
+        ];
+        try {
+            $res = $this->model->updateById($id,$data);
+        } catch (\Exception $e){
+            return false;
+        }
+        return $res;
+
+    }
+
 
 }

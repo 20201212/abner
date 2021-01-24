@@ -6,9 +6,7 @@
  */
 
 namespace app\common\model\mysql;
-use think\Model;
-
-class GoodsSku extends Model
+class GoodsSku extends BaseModel
 {
-    protected $autoWriteTimestamp = true;
+
 }

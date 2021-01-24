@@ -6,6 +6,7 @@
  */
 
 namespace app\common\business;
+use think\facade\Log;
 class BusBase
 {
     public function add($data){

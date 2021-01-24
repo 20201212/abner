@@ -21,8 +21,9 @@ class GoodsSku extends  BusBase
         foreach($data['skus'] as $value ) {
             $insertData[] = [
                 'goods_id'                          => $data['goods_id'],
-                'specs_values_ids'   => $value['provalnames']['propvalids'],
+                'specs_value_ids'                   => $value['propvalnames']['propvalids'],
                 'price'                             => $value['propvalnames']['skuSellPrice'],
+                'cost_price'                        => $value['propvalnames']['skuMarketPrice'],
                 'stock'                             => $value['propvalnames']['skuStock'],
             ];
         }

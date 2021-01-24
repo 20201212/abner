@@ -6,9 +6,8 @@
  */
 
 namespace app\common\model\mysql;
-use think\Model;
 
-class Category extends  Model
+class Category extends  BaseModel
 {
     protected $autoWriteTimestamp = true;
 
@@ -45,18 +44,7 @@ class Category extends  Model
         return $result;
     }
 
-    /**
-     * Explanation：更新状态
-     * Author: Abner
-     * Time: 2021/1/10 15:55
-     * @param $id
-     * @param $data
-     * @return bool
-     */
-    public function updateById($id,$data){
-        $result = $this->where('id', $id) ->save($data);
-        return $result;
-    }
+
 
     public function getChildCountInPids($pids){
         $where[] = ['pid','in',$pids['pid']];

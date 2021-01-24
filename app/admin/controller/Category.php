@@ -116,7 +116,8 @@ class Category extends AdminUser
 
     public function dialog(){
         $categorys = (new CategoryBus())->getNormalByPid();
-        return show(config('status.success'), 'ok', $categorys);
+        return view('', ['categorys'=>json_encode($categorys)]);
+//        return show(config('status.success'), 'OK', $categorys);
     }
 
     public function getByPid(){
@@ -124,5 +125,17 @@ class Category extends AdminUser
         $categorys = (new CategoryBus()) ->getNormalByPid($pid);
         return show(config('status.success'), 'ok', $categorys);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

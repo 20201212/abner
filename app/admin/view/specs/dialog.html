@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>选择规格</title>
-    <link rel="stylesheet" href="{__STATIC_PATH}admin/lib/layui-v2.5.4/css/layui.css" media="all">
-    <link rel="stylesheet" href="{__STATIC_PATH}admin/css/public.css" media="all">
+    <link rel="stylesheet" href="{__STATIC_ADMIN__}lib/layui-v2.5.4/css/layui.css" media="all">
+    <link rel="stylesheet" href="{__STATIC_ADMIN__}css/public.css" media="all">
     <style>
         body {
             background: #ffffff;
@@ -15,7 +15,7 @@
 
         .layui-inline {
             border: 1px solid #eee;
-            width: 170px;
+            width: 120px;
             height: 330px;
             margin-right: 12px;
             line-height: 1.9;
@@ -78,27 +78,13 @@
 <div class="layui-input-block"></div>
 <button class="layui-btn classify-btn" style="margin-left:240px;">确 定</button>
 
-<script src="{__STATIC_PATH}admin/lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
-<script src="{__STATIC_PATH}admin/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-<script src="{__STATIC_PATH}admin/js/common.js" charset="utf-8"></script>
+<script src="{__STATIC_ADMIN__}lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+<script src="{__STATIC_ADMIN__}lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="{__STATIC_ADMIN__}js/common.js" charset="utf-8"></script>
 <script>
     let isInputVal = false
     var cls = '' //点击时父级的class
-    let moke = [
-        {
-            id: 1,
-            name: '颜色规格',
-            
-        }, {
-            id: 2,
-            name: '尺码',
-            
-        }, {
-            id: 3,
-            name: '材质',
-            
-        }
-    ];
+    let moke =  {$specs|raw}
 
     layui.use(['form'], function () {
         let request = getRequest();
@@ -110,19 +96,15 @@
             let html = ''
             moke.forEach(function (item, index) {
                 html += `<li class="child-ele" data-id="${item.id}"  data-index="${index}">${item.name}</li>`
-            })
-
-
+            }) 
             $('.spec-left').html(html)
 
             // });
         }
 
-        queryClassif(); // 获取后端分类数据
-
+        queryClassif(); // 获取后端分类数据 
         //  点击获取而已
-        $('body').on('click', '.child-ele', function () {
-
+        $('body').on('click', '.child-ele', function () { 
             $(this).parent().children('li').removeClass('layui-btn-normal');
             $(this).addClass('layui-btn-normal');
 
@@ -130,8 +112,7 @@
             specs_id = $(this).attr('data-id');
            // let projectArr = moke[index]['project'].split(',')
 
-            let url = "{:url('specsValue/getBySpecsId')}"+"?specs_id="+specs_id;
-
+            let url = "{:url('specsValue/getBySpecsId')}"+"?specs_id="+specs_id; 
             layObj.get(url, function (res) {
                 let html = ''
                 projectArr = res.result;
@@ -153,9 +134,20 @@
 
         // 删除规格值按钮
         $('html').on('click', '.del-child-tags', function () {
-            $(this).parent().remove()
-            // var index = parent.layer.getFrameIndex(window.name);
-            // parent.layer.close(index);
+            let _this = $(this);
+            let specs_id = $(this).parent('.layui-btn-normal').attr('data-specs-value-id'); 
+            let url = "{:url('specsValue/status')}"+"?stats=99&specs_id="+specs_id; 
+            layObj.get(url, function (res) { 
+                if(res.status == 200){
+                    console.log(res.status);
+                    _this.parent().remove() 
+                }else{
+                    layer.msg(res.msg);
+                }
+            });
+
+            return false;
+ 
         })
 
         // 添加规格标签
@@ -168,7 +160,7 @@
                 let tags = $(this).val();
                 url = "/admin/specsValue/save?specs_id="+specs_id+"&name="+tags;
                 layObj.get(url, function (res) {
-                    if(res.status != 1) {
+                    if(res.status != 200) {
                         layer.msg("添加失败，请稍候重试");
                         return false;
                     }

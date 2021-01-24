@@ -8,8 +8,7 @@
 
 namespace app\common\model\mysql;
 
-use think\Model;
-class User extends Model
+class User extends BaseModel
 {
     protected $autoWriteTimestamp = true;
 
@@ -54,13 +53,7 @@ class User extends Model
         return $res;
     }
 
-    public function updateById($id,$data){
-        $id = intval($id);
-        if(empty($id) || empty($data)){
-            return false;
-        }
-        return $res = $this->where('id',$id)->save($data);
-    }
+
 
 
 

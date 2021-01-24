@@ -6,9 +6,8 @@
  */
 
 namespace app\common\model\mysql;
-use think\Model;
 
-class SpecsValue extends  Model
+class SpecsValue extends  BaseModel
 {
     public function getNormalBySpecsId($specsId, $field){
         $where = [
@@ -22,5 +21,7 @@ class SpecsValue extends  Model
         return $res;
 
     }
+
+
 
 }

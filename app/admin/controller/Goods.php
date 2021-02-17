@@ -29,9 +29,9 @@ class Goods extends AdminBase
         }
         $data = input('param.');
         $check = $this->request->checkToken('__token__');
-        if(!$check) {
-            return show(config('status.error'), '非法请求');
-        }
+//        if(!$check) {
+//            return show(config('status.error'), '非法请求');
+//        }
         $data['category_path_id'] = $data['category_id'];
         $result = explode(',', $data['category_path_id']);
         $data['category_id'] = end($result);

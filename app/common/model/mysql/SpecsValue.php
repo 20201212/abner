@@ -22,6 +22,14 @@ class SpecsValue extends  BaseModel
 
     }
 
+    public function getNormalInIds($ids){
+        $result = $this->whereIn('id',$ids)
+            ->where('status','=', config('status.mysql.table_normal'))
+            ->select();
+        return $result;
+    }
+
+
 
 
 }

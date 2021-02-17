@@ -37,4 +37,92 @@ class Goods extends BaseModel
             ->paginate($num);
         return $list;
     }
+
+
+
+    public function getNormalGoodsByCondition($where,$field=true,$limit=5){
+        $order = [
+            'listorder' => 'desc',
+            'id'        => 'desc',
+        ];
+        $where['status']    = config('status.mysql.table_normal');
+
+        $result = $this
+            ->order($order)
+            ->where($where)
+            ->field($field)
+            ->limit($limit)
+//            ->fetchSql()
+            ->select();
+        return $result;
+
+    }
+
+    public function getNoramlGoodsFindInSetCategroyId($categoryId,$field=true){
+        $order = [
+            'listorder' => 'desc',
+            'id'        => 'desc',
+        ];
+        $where['status']    = config('status.mysql.table_normal');
+        $result = $this
+            ->whereFindInSet('category_path_id', $categoryId)
+            ->order($order)
+            ->where($where)
+            ->field($field)
+            ->limit(10)
+            ->select();
+        return $result;
+    }
+
+    public function getNormalLists($data, $num=10, $field = true,$order){
+
+        $res = $this;
+        if(isset($data['category_path_id']))  {
+            $res = $this->whereFindInSet('category_path_id', $data['category_path_id']);
+        }
+        $list = $res->where('status', '=',config('status.mysql.table_normal'))
+            ->order($order)
+            ->field($field)
+            ->fetchSql()
+            ->paginate($num);
+        return $list;
+    }
+
+
+    public function getImageAttr($value){
+        return request()->domain().$value;
+    }
+
+    public function getCarouselImageAttr($value){
+        if(!empty($value)){
+            $value = explode(',', $value);
+            $value = array_map(function($v){
+                return request()->domain().$v;
+            },$value);
+        }
+        return $value;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -19,15 +19,9 @@ class SpecsValue extends  BaseModel
 //            ->fetchSql()
             ->select();
         return $res;
-
     }
 
-    public function getNormalInIds($ids){
-        $result = $this->whereIn('id',$ids)
-            ->where('status','=', config('status.mysql.table_normal'))
-            ->select();
-        return $result;
-    }
+
 
 
 

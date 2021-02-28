@@ -20,4 +20,11 @@ class BaseModel extends Model
         return $this->where(['id'=>$id])->save($data);
     }
 
+    public function getNormalInIds($ids){
+        $result = $this->whereIn('id',$ids)
+            ->where('status','=', config('status.mysql.table_normal'))
+            ->select();
+        return $result;
+    }
+
 }

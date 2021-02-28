@@ -73,5 +73,21 @@ class Arr
         ];
     }
 
+    /**
+     * Explanation：根据数组的某值排序
+     * Author: Abner
+     * Time: 2021/2/28 21:53
+     * @param $result
+     * @param $key
+     * @return array|bool
+     */
+    public static function arrsSortByKey($result,$key, $sort = SORT_DESC) {
+        if(!is_array($result) || !$key) {
+            return [];
+        }
+        array_multisort(array_column($result, $key), $sort, $result);
+        return $result;
+    }
+
 
 }

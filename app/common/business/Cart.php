@@ -39,9 +39,17 @@ class Cart extends BusBase
         return $res;
     }
 
-    public function lists($userId){
+    public function lists($userId,$ids){
         try {
-            $res = Cache::hGetAll(Key::userCart($userId));
+            if($ids) {
+                $ids = explode(',', $ids);
+                $res = Cache::hMget(Key::userCart($userId), $ids);
+                if(in_array(false, array_values($res))){
+                    return [];
+                }
+            }else{
+                $res = Cache::hGetAll(Key::userCart($userId));
+            }
         }catch (\Exception $e){
             $res = [];
         }
@@ -52,14 +60,21 @@ class Cart extends BusBase
         $result = [];
         $skuIds = array_keys($res);
         $skus = (new GoodsSku())->getNormalInIds($skuIds);
+        $stocks = array_column($skus, 'stock', 'id');
         $skuIdPrice = array_column($skus, 'price', 'id');
         $skuIdSpecsValueIds = array_column($skus,'specs_value_ids', 'id');
         $specsValues = (new SpecsValue())->dealSpecsValue($skuIdSpecsValueIds);
         foreach ($res as $k=>$v) {
+            $price = $skuIdPrice[$k] ?? 0;
             $v = json_decode($v,true);
+            if($ids && isset($stocks[$k]) && $stocks[$k] < $v['num']) {
+                throw new \think\Exception($v['title'].'的商品库存不足');
+            }
+
             $v['id'] = $k;
             $v['image'] = preg_match('/http:\/\//', $v['image']) ? $v['image'] : request()->domain().$v['image'];
-            $v['price'] = $skuIdPrice[$k] ??  0;
+            $v['price'] = $price;
+            $v['total_price'] = $price * $v['num'];
             $v['sku'] = $specsValues[$k] ?? '暂无规格';
             $result[] = $v;
         }

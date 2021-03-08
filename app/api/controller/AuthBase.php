@@ -16,7 +16,7 @@ class AuthBase extends ApiBase
     {
         parent::initialize();
         if($this->isLogin == 1){
-            $this->userId = 20;
+            $this->userId = 16;
             return true;
         }
         $this->accessToken = $this->request->header('access-token');

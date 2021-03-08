@@ -13,12 +13,12 @@ class Cart extends AuthBase
 {
     public function add(){
 //        if(!$this->request->isPost()){
-//            return Show::error([],'请求方式错误');
+//            return Show::error('请求方式错误');
 //        }
         $id = input('param.id', 0, 'intval');
         $num = input('param.num', 0, 'intval');
         if(!$id || !$num){
-            return Show::error([], '参数不合法');
+            return Show::error('参数不合法');
         }
         $res = (new CartBis())->insertRedis($this->userId,$id,$num);
         if($res === false){
@@ -27,8 +27,8 @@ class Cart extends AuthBase
         return Show::success();
     }
 
-    public function lists(){
-        $res = (new CartBis())->lists($this->userId);
+    public function lists($ids){
+        $res = (new CartBis())->lists($this->userId,$ids);
 
         if($res == FALSE){
             return Show::error();
@@ -42,7 +42,7 @@ class Cart extends AuthBase
         }
         $id = input('param.id', 0, 'intval');
         if(!$id) {
-            return Show::error([],'参数不合法');
+            return Show::error('参数不合法');
         }
         $res = (new CartBis())->deleteRedis($this->userId,$id);
         if($res == FAlSE) {
@@ -59,13 +59,13 @@ class Cart extends AuthBase
         $id = input('param.id', 0, 'intval');
         $num = input('param.num', 0, 'intval');
         if(!$id || !$num ){
-            return Show::error([],'参数不合法!');
+            return Show::error('参数不合法!');
         }
 
         try{
             $res = (new CartBis()) ->updateRedis($this->userId, $id, $num);
         }catch (\think\Exception $e) {
-            return Show::error([], $e->getMessage());
+            return Show::error($e->getMessage());
         }
         if($res === FALSE ){
             return Show::error();
